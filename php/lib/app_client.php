@@ -20,13 +20,13 @@ switch($requestMethod) {
 
         $profile = $database->get(NAME_TABLE, [
             "id",
-            "role"
+            "role",
+            "password"
         ], [
-            "username" => $username,
-            "password" => $password
+            "username" => $username
         ]);
 
-        if ($profile) {
+        if (password_verify($password,$profile['password'])) {
 
             require_once('jwt.php');
 
